@@ -1,0 +1,275 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f6f4fb;
+  --surface: #ffffff;
+  --text: #1c1826;
+  --muted: #625b72;
+  --accent: #7c3aed;
+  --accent-soft: #ede7fd;
+  --border: rgba(28, 24, 38, 0.1);
+  --shadow: 0 18px 50px rgba(67, 32, 130, 0.12);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #130f1d;
+    --surface: #1d1729;
+    --text: #f4f0ff;
+    --muted: #b7aecb;
+    --accent: #b794ff;
+    --accent-soft: #2b2140;
+    --border: rgba(255, 255, 255, 0.1);
+    --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent);
+}
+
+.wrap {
+  width: min(760px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.site-header {
+  padding: 28px 0 10px;
+}
+
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-size: 1.15rem;
+}
+
+.brand img {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(67, 32, 130, 0.18);
+}
+
+.nav {
+  display: flex;
+  gap: 18px;
+  font-size: 0.95rem;
+}
+
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.nav a:hover {
+  color: var(--accent);
+}
+
+.hero {
+  padding: 64px 0 44px;
+}
+
+.hero .wrap {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.hero-icon {
+  width: 112px;
+  height: 112px;
+  border-radius: 26px;
+  box-shadow: var(--shadow);
+}
+
+.hero h1 {
+  margin: 0 0 8px;
+  font-size: clamp(2.4rem, 8vw, 4rem);
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.tagline {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.15rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 18px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.button.secondary {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.content {
+  padding: 12px 0 72px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: clamp(24px, 5vw, 44px);
+  box-shadow: var(--shadow);
+}
+
+.card + .card {
+  margin-top: 20px;
+}
+
+.card h1 {
+  margin-top: 0;
+  font-size: clamp(2rem, 6vw, 2.8rem);
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+}
+
+.card h2 {
+  margin-top: 2em;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.card h3 {
+  margin-top: 1.5em;
+  font-size: 1.05rem;
+}
+
+.card p,
+.card li {
+  color: var(--text);
+}
+
+.card ul {
+  padding-left: 1.2em;
+}
+
+.card li + li {
+  margin-top: 0.45em;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.effective {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.callout {
+  background: var(--accent-soft);
+  border-radius: 16px;
+  padding: 18px 20px;
+  margin: 24px 0;
+}
+
+.faq {
+  margin: 0;
+}
+
+.faq dt {
+  font-weight: 700;
+  margin-top: 1.4em;
+}
+
+.faq dd {
+  margin: 0.35em 0 0;
+  color: var(--muted);
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 0 48px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+footer .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 22px;
+  justify-content: space-between;
+}
+
+footer a {
+  color: var(--muted);
+}
+
+footer a:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 620px) {
+  .site-header .wrap {
+    align-items: flex-start;
+  }
+
+  .hero {
+    padding-top: 40px;
+  }
+
+  .hero .wrap {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .hero-icon {
+    width: 88px;
+    height: 88px;
+    border-radius: 21px;
+  }
+}

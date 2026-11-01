@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Help Center — Zuppi</title>
+  <meta name="description" content="Search 100+ answers to common Zuppi questions about flashcards, study scheduling, iCloud sync, imports, Premium, and troubleshooting.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="icon.png" type="image/png">
+  <style>
+    .llm-guide { margin: 28px 0 34px; padding: 24px; border: 1px solid var(--border); border-radius: 18px; background: var(--accent-soft); }
+    .llm-guide h2 { margin-top: 0; }
+    .llm-guide h3 { margin-top: 22px; }
+    .llm-guide pre { overflow-x: auto; margin: 12px 0 18px; padding: 16px; border-radius: 12px; background: var(--surface); color: var(--text); border: 1px solid var(--border); font: .88rem/1.55 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; white-space: pre-wrap; }
+    .llm-guide code { font: inherit; }
+    .llm-guide ol { padding-left: 1.25em; }
+
+    .search-box input:focus { outline: 3px solid var(--accent-soft); border-color: var(--accent); }
+    .result-count { margin: 0 0 16px; color: var(--muted); font-size: .95rem; }
+    .help-list { display: grid; gap: 10px; }
+    .help-item { border: 1px solid var(--border); border-radius: 14px; background: var(--surface); overflow: hidden; }
+    .help-item[hidden] { display: none; }
+    .help-item summary { cursor: pointer; list-style: none; padding: 17px 20px; font-weight: 650; }
+    .help-item summary::-webkit-details-marker { display: none; }
+    .help-item summary::before { content: "+"; display: inline-block; width: 24px; color: var(--accent); font-size: 1.2rem; }
+    .help-item[open] summary::before { content: "−"; }
+    .answer { padding: 0 20px 18px 44px; color: var(--muted); }
+    .category { margin: 30px 0 10px; color: var(--accent); font-size: 1.05rem; }
+    .no-results { padding: 30px; text-align: center; color: var(--muted); background: var(--accent-soft); border-radius: 16px; }
+    .contact-box { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img src="icon.png" alt="Zuppi app icon"><span>Zuppi</span></a>
+      <nav class="nav" aria-label="Main"><a href="privacy.html">Privacy</a><a href="support.html">Support</a></nav>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="wrap">
+      <article class="card">
+        <h1>Zuppi Help Center</h1>
+        <p>Search the answers below for help with studying, decks, imports, iCloud sync, Premium, and troubleshooting.</p>
+
+        <section class="llm-guide" aria-labelledby="llm-guide-title">
+          <h2 id="llm-guide-title">Create flashcards with any AI model</h2>
+          <p>You can use ChatGPT, Claude, Gemini, or any other LLM to create cards, then paste them directly into a Zuppi deck.</p>
+
+          <h3>1. Copy this prompt into your AI model</h3>
+          <pre><code>Create 20 useful flashcards about [YOUR TOPIC].
+Return ONLY tab-separated values with no heading and no markdown.
+Each line must contain exactly two columns:
+front&lt;TAB&gt;back
+Do not use tabs inside either column. Keep each front focused on one question and each back concise.
+
+Example:
+What is photosynthesis?&lt;TAB&gt;The process plants use to convert light energy into chemical energy.
+
+Topic: [YOUR TOPIC]</code></pre>
+
+          <h3>2. Copy the generated rows</h3>
+          <p>Ask the model to return only the rows. Do not copy code fences, numbering, bullet points, or an explanation. TSV is recommended because tabs are less likely than commas to appear inside normal sentences.</p>
+
+          <h3>3. Paste them into Zuppi</h3>
+          <ol>
+            <li>Open the deck where you want the cards.</li>
+            <li>Choose <strong>Paste CSV</strong>.</li>
+            <li>Paste the generated rows.</li>
+            <li>Confirm that the preview shows the front and back in separate columns.</li>
+            <li>Import the cards.</li>
+          </ol>
+
+          <h3>CSV format</h3>
+          <p>If your model creates comma-separated CSV instead, use this format. Fields containing commas must be surrounded by double quotes.</p>
+          <pre><code>What is spaced repetition?,A study method that schedules reviews over increasing intervals.
+What is FSRS?,A modern algorithm for scheduling flashcard reviews.
+"What is Zuppi?","A private flashcard app for iPhone, iPad, and Mac."</code></pre>
+
+          <p class="muted"><strong>Tip:</strong> Always review AI-generated cards before importing them. AI can produce incorrect or oversimplified information, especially for medical, legal, or scientific topics.</p>
+        </section>
+
+        <div class="search-box">
+          <label for="help-search" class="muted">Search the help center</label>
+          <input id="help-search" type="search" placeholder="Try: iCloud, Anki, Premium, cards, backup…" autocomplete="off">
+        </div>
+        <p id="result-count" class="result-count" aria-live="polite">Showing 100+ answers</p>
+        <div id="help-list" class="help-list"></div>
+        <p id="no-results" class="no-results" hidden>No matching answer found. Try different words or email <a href="mailto:adibfahi@gmail.com">adibfahi@gmail.com</a>.</p>
+        <div class="callout contact-box">
+          <strong>Still need help?</strong><br>
+          Email <a href="mailto:adibfahi@gmail.com">adibfahi@gmail.com</a> with your device model, operating system version, Zuppi version, and a description of the problem.
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer><div class="wrap"><span>© 2026 Adib Fahimi. All rights reserved.</span><span><a href="privacy.html">Privacy</a> · <a href="support.html">Support</a></span></div></footer>
+
+  <script>
+    const questions = [
+      ["What is Zuppi?", "Zuppi is a private flashcard app for iPhone, iPad, and Mac with spaced-repetition scheduling."],
+      ["Does Zuppi require an account?", "No. Zuppi has no account, sign-up, or login. You can start studying immediately."],
+      ["Does Zuppi work offline?", "Yes. Creating cards, studying, reviewing, and most imports work without an internet connection."],
+      ["What devices support Zuppi?", "Zuppi supports iPhone and iPad with iOS 18 or later, and Mac with macOS 15 or later."],
+      ["Is Zuppi available for Mac?", "Yes. The same app supports Mac, with a layout adapted for keyboard, mouse, and trackpad."],
+      ["Does Zuppi support iPad?", "Yes. Zuppi supports iPad and uses a sidebar layout for larger screens."],
+      ["What is spaced repetition?", "Spaced repetition schedules reviews at useful intervals so you practice information before you forget it."],
+      ["What scheduler does Zuppi use?", "Zuppi uses FSRS, a modern spaced-repetition scheduling algorithm."],
+      ["What do Again, Hard, Good, and Easy mean?", "Choose Again if you forgot, Hard if recall was difficult, Good for normal recall, and Easy if the card was very easy."],
+      ["Can I practice cards when nothing is due?", "Yes. Use Practice to study cards even when no scheduled reviews are due."],
+      ["What is the difference between Study and Practice?", "Study follows the scheduler and changes review dates. Practice lets you review without changing the schedule."],
+      ["How do I reveal an answer?", "Open a card and tap or click the card to reveal its answer, then choose a rating."],
+      ["How do I undo a review?", "Use the Undo control immediately after rating a card to restore its previous scheduling state."],
+      ["How do I suspend a card?", "Open the card list, choose the card, and use the suspend control. Suspended cards are excluded from reviews."],
+      ["How do I unsuspend a card?", "Open the suspended card in the card list and turn off its suspended status."],
+      ["How do I create a deck?", "Tap the plus button in the deck sidebar, enter a name, and save the deck."],
+      ["How do I create a subdeck?", "Open the deck menu and choose New Subdeck, then enter the subdeck name."],
+      ["Can I rename a deck?", "Yes. Open the deck menu, choose Edit, change the name, and save."],
+      ["Can I delete a deck?", "Yes. Open the deck menu and choose Delete. Confirm carefully because deletion removes the deck and its cards."],
+      ["Can I move cards to another deck?", "Yes. Edit the card or note and select a different deck where that option is available."],
+      ["How many decks are free?", "The free version supports up to 2 decks, including subdecks."],
+      ["How many cards are free?", "The free version supports up to 50 cards in total."],
+      ["Are existing cards deleted when I reach the free limit?", "No. Existing content remains available. You simply cannot add more until you remove content or unlock Premium."],
+      ["How do I create a basic card?", "Open a deck, choose Cards, choose Basic, enter the front and back, and tap Save."],
+      ["How do I create a cloze card?", "Choose Cloze, type your sentence, select text or use the cloze syntax, then save the note."],
+      ["What is cloze deletion?", "A cloze card hides part of a sentence so you recall the missing word or phrase."],
+      ["How do I type cloze syntax?", "Type text such as {{c1::answer}}. Zuppi creates a card that hides answer."],
+      ["How do I create a reverse card?", "While editing a basic note, enable Also create reverse card. Zuppi creates a second card with the sides reversed."],
+      ["What are extra fields?", "Extra fields are named pieces of information shown on the answer side of a note, such as an example or pronunciation."],
+      ["What is image occlusion?", "Image occlusion hides regions of an image so you can recall labels, structures, or locations."],
+      ["Can I edit a card after reviewing it?", "Yes. Open the card list, select the note, edit its content, and save."],
+      ["Can I add images to cards?", "Yes. Basic and cloze notes can contain supported image media."],
+      ["Can I add audio to cards?", "Yes. You can attach supported audio media to notes where the media controls are available."],
+      ["How do I choose a deck icon?", "Edit a deck and choose an icon. You can use SF Symbols or emoji and select a color."],
+      ["How do I change the app theme?", "Open Settings, choose Theme, and select System, Light, or Dark."],
+      ["Does Zuppi support keyboard shortcuts?", "Yes. Mac users can use keyboard shortcuts for common study, navigation, reveal, rating, and undo actions."],
+      ["How do I change the daily new-card limit?", "Open Settings and adjust New cards per day in the Study section."],
+      ["How do I change the daily review limit?", "Open Settings and adjust Reviews per day in the Study section."],
+      ["What does the activity heatmap show?", "The heatmap shows review activity over time. You can choose a 3-month, 6-month, or 1-year range."],
+      ["How do I change the heatmap range?", "Open Settings, find Activity, and choose 3 months, 6 months, or 1 year."],
+      ["How do I import an Anki deck?", "Open Settings or a deck import action, choose Import Anki Package, and select an .apkg file."],
+      ["What is an APKG file?", "An .apkg file is an Anki package that can contain notes, cards, scheduling information, and sometimes media."],
+      ["Does Zuppi import Anki media?", "Zuppi imports media from packages that use Anki's supported older export format. Results can vary by package."],
+      ["Why did my Anki import fail?", "Make sure the file is a complete .apkg package, not a renamed archive, and try exporting it again from Anki."],
+      ["Can an AI model create cards for Zuppi?", "Yes. Ask ChatGPT, Claude, Gemini, or another LLM to return tab-separated rows with the front in the first column and the back in the second column. Review the content before importing it."],
+      ["What prompt should I use to make Zuppi cards with an LLM?", "Tell the model to return only two tab-separated columns, front and back, with one card per line and no markdown or heading. The Help Center above includes a copyable prompt."],
+      ["Should I use CSV or TSV for AI-generated cards?", "TSV is recommended because tabs are less likely to occur in normal sentences. Zuppi also accepts comma-separated CSV when fields containing commas are quoted."],
+      ["How do I paste AI-generated cards into Zuppi?", "Copy only the generated rows, open a deck, choose Paste CSV, paste the rows, check the preview, and import them."],
+      ["How do I check AI-generated cards?", "Review every card before studying. AI can produce incorrect or oversimplified information, especially for medical, legal, historical, and scientific topics."],
+      ["What columns should a CSV have?", "Use a front or question column and a back or answer column. Keep each card on its own row."],
+      ["Can I paste CSV text?", "Yes. Use the paste CSV import option from a deck and paste tab-separated or comma-separated rows."],
+      ["Why are my CSV columns wrong?", "Check whether the file uses commas, tabs, or semicolons and choose the matching delimiter during import."],
+      ["Can I export cards to CSV?", "Yes. Open a deck menu and choose the CSV export option."],
+      ["Can I export an Anki package?", "Yes. Open a deck menu and choose the Anki package export option."],
+      ["How do I make a backup?", "Open Settings and choose Export Backup. Save the .zuppi backup file somewhere safe."],
+      ["How do I restore a backup?", "Open Settings, choose Restore Backup, select your .zuppi file, and confirm the import."],
+      ["What is a Zuppi backup file?", "A Zuppi backup contains your decks, notes, cards, review history, scheduling data, and supported media."],
+      ["Why will my backup not open?", "Make sure the file was exported by Zuppi and was not renamed, truncated, or modified by another app."],
+      ["Can I use a backup to move to another device?", "Yes. You can restore a backup on another device, or use iCloud sync when both devices share an Apple Account."],
+      ["How does iCloud sync work?", "Zuppi stores data in your private iCloud database so your devices signed into the same Apple Account can share it."],
+      ["Does the developer see my cards?", "No. Zuppi has no developer server. Cards remain on your devices or in your private iCloud database."],
+      ["Do I need iCloud Drive for sync?", "You need to be signed into iCloud and allow Zuppi's iCloud capability. iCloud Drive itself is not a separate Zuppi account."],
+      ["How do I check iCloud sync status?", "Open Zuppi Settings and look at the iCloud section. It should show iCloud Sync: On."],
+      ["Why does iCloud say Sign in to iCloud?", "The device is not signed into an Apple Account with iCloud enabled. Sign in through the device Settings app."],
+      ["Why does iCloud say Restricted?", "Apple has restricted iCloud access on that device or account. Check Screen Time, managed-device restrictions, and Apple Account status."],
+      ["Why does iCloud say Unavailable?", "Check your internet connection, iCloud status, Apple system status, and whether the device is signed into iCloud."],
+      ["Why are my cards not syncing?", "Confirm both devices use the same Apple Account, Zuppi shows Sync On, and both devices have internet access. Then wait and relaunch Zuppi."],
+      ["How long does iCloud sync take?", "Small changes usually appear within seconds, but larger imports or a first sync can take several minutes."],
+      ["Can I sync with two different Apple Accounts?", "No. Private iCloud data is associated with the Apple Account used on the device."],
+      ["Will deleting a card sync to my other devices?", "Yes. Deletions are synced through the same private iCloud database. Use Delete All Data carefully."],
+      ["Why is my iCloud data different on two devices?", "One device may be offline, using a different Apple Account, or still processing changes. Check status and give sync time to finish."],
+      ["How do I test iCloud sync?", "Create a uniquely named deck on one physical device, wait for sync, and look for it on another physical device using the same Apple Account."],
+      ["Does the simulator test iCloud sync?", "The simulator is suitable for UI screenshots, but use two physical devices for a reliable iCloud sync test."],
+      ["What happens if I turn off iCloud?", "Zuppi remains usable locally. Changes made while iCloud is unavailable may not appear on other devices until CloudKit is available again."],
+      ["How do I delete all Zuppi data?", "Open Settings and choose Delete All Data, then confirm. This removes local data and requests removal of associated iCloud records."],
+      ["Can deleted data be recovered?", "Deletion is intended to be permanent. Export a backup before using Delete All Data."],
+      ["What is Zuppi Premium?", "Premium is a one-time non-consumable purchase that unlocks unlimited decks and cards."],
+      ["Is Premium a subscription?", "No. Zuppi Premium is a one-time purchase with no recurring subscription."],
+      ["How much does Premium cost?", "The current price is shown by Apple in the Premium screen and may vary by country, currency, taxes, and price changes."],
+      ["How do I buy Premium?", "Open Settings, choose Unlock Premium, and follow Apple's purchase sheet."],
+      ["Why does Premium say unavailable?", "The product may still be loading, the device may be offline, the product may not be available in the storefront, or App Store configuration may be incomplete."],
+      ["What is the Premium product ID?", "The product ID is com.adibfahimi.zuppi.premium."],
+      ["How do I restore Premium?", "Open Settings → Premium → Restore Purchases. Use the same Apple Account that made the purchase."],
+      ["I bought Premium but it is still locked. What should I do?", "Wait for the purchase to finish, reopen Zuppi, and choose Restore Purchases. If it remains locked, contact Apple or Zuppi support with your receipt details."],
+      ["Does Premium work on all my devices?", "Yes, when the devices use the same Apple Account and the purchase is restored through Apple."],
+      ["Can I buy Premium again?", "A verified non-consumable purchase should restore instead of charging you again on the same Apple Account."],
+      ["What is the debug Premium unlock?", "It is a developer-only control in Debug builds for testing. It is not included in App Store release builds."],
+      ["Is the debug unlock available to App Store users?", "No. Debug unlock controls are compiled only into development builds and are absent from Release and App Store builds."],
+      ["How do I use Apple Intelligence features?", "On a supported device, enable Apple Intelligence in system settings, then use AI card creation or card simplification in Zuppi."],
+      ["Why is AI card generation unavailable?", "AI card generation requires a supported Apple Intelligence device and iOS 26 or macOS 26 with Apple Intelligence enabled."],
+      ["Does AI send my cards to a server?", "No. Zuppi uses Apple's on-device Foundation Models features. Card text is not sent to a Zuppi developer server."],
+      ["Can AI create cards from a PDF?", "Yes, on supported devices. Choose the PDF import flow and let Zuppi extract text before generating cards."],
+      ["Why did PDF text extraction fail?", "The PDF may contain only images, have protected content, or be too unclear. Try a text-based PDF or the OCR option."],
+      ["Can I generate cards from a topic?", "Yes. Use the AI card creation flow and enter a topic. Availability depends on Apple Intelligence support."],
+      ["How do I simplify a card with AI?", "Open a card for editing and use the Simplify action on the front or back text."],
+      ["Does Zuppi collect analytics?", "No. Zuppi does not include analytics, advertising, tracking, or a developer-operated analytics server."],
+      ["Does Zuppi show ads?", "No. Zuppi has no advertising."],
+      ["What data does Zuppi collect?", "The developer does not collect personal data. Your content is stored locally and optionally in your private iCloud database."],
+      ["Where can I read the privacy policy?", "Read the privacy policy at https://adibfahimi.github.io/zuppi/privacy.html."],
+      ["How do I contact support?", "Email adibfahi@gmail.com with your device model, OS version, Zuppi version, steps to reproduce, and screenshots if useful."],
+      ["How do I find my Zuppi version?", "Open Settings in Zuppi and look in the About section for the version number."],
+      ["How do I report a crash?", "Email support with what you were doing, your device and OS version, and whether the crash repeats after relaunching."],
+      ["Why is Zuppi stuck on the loading screen?", "Check iCloud and network status. If it continues, relaunch the app and contact support with your device and OS version."],
+      ["Why is the app slow after an import?", "Large Anki packages, many cards, or media can take time to process. Keep Zuppi open until the import completes."],
+      ["Why does Zuppi use storage space?", "Cards, review history, backups, imported media, and external media storage use device space."],
+      ["How do I free storage used by Zuppi?", "Delete unused media or cards, export a backup, and remove old local files through the app or system storage settings."],
+      ["Can I use Zuppi with VoiceOver?", "Zuppi uses standard SwiftUI controls and accessibility labels. If a control is unclear, contact support with the screen and device details."],
+      ["Can I change the language?", "Zuppi follows the device language when a supported localization is available. You can set an app-specific language in system settings where supported."],
+      ["Does Zuppi support dark mode?", "Yes. Choose System, Light, or Dark in Zuppi Settings."],
+      ["What should I include in a support email?", "Include your device, OS version, Zuppi version, the exact steps that caused the problem, and a screenshot or error message."],
+      ["How do I keep my cards safe?", "Use iCloud sync and regularly export a Zuppi backup. Keep backups in a safe location outside the app."],
+      ["Can I use Zuppi on a new device?", "Install Zuppi, sign into the same Apple Account for iCloud sync, or restore a backup exported from your previous device."],
+      ["What happens if I uninstall Zuppi?", "Local app data is removed with the app. Your iCloud records may remain in your private iCloud database until you delete them."],
+      ["Can I use Zuppi without an Apple Account?", "Yes, for local use. An Apple Account is required for iCloud sync and Apple Store purchases."],
+      ["How do I get the latest version?", "Update Zuppi through the App Store, TestFlight, or Xcode depending on how you installed it."],
+      ["Is Zuppi available through TestFlight?", "TestFlight availability depends on the developer's current testing groups and invitation settings."],
+      ["How do I send feedback?", "Email adibfahi@gmail.com. Feature requests and study-workflow feedback are welcome."],
+      ["Where is Zuppi's support website?", "Visit https://adibfahimi.github.io/zuppi/support.html for this searchable help center."],
+      ["What if I cannot find an answer here?", "Search using a shorter keyword, try a related term, or email adibfahi@gmail.com for help."],
+      ["Can I request a new feature?", "Yes. Email support with a description of the workflow you want and why it would help your study routine."],
+      ["Can I request a refund?", "Apple handles App Store and in-app purchase refunds. Use Apple's report-a-problem process for a refund request."],
+      ["Who processes Premium payments?", "Apple processes the payment, receipt, refund, and tax. Zuppi does not receive your payment card details."],
+      ["Why is my Apple purchase pending?", "Ask to Buy, payment verification, or a temporary Apple account issue can leave a purchase pending. Wait for Apple to complete it and reopen Zuppi."],
+      ["How do I check Apple service status?", "Visit Apple's System Status page if iCloud, App Store, or purchase services appear unavailable."],
+      ["Can I export my data before contacting support?", "Yes. Export a Zuppi backup from Settings before troubleshooting destructive actions."],
+      ["Does support need my cards?", "Usually no. Do not send private card content unless you intentionally remove sensitive information first."],
+      ["What is the safest troubleshooting step?", "Export a backup, confirm iCloud status, relaunch Zuppi, and contact support before deleting data."],
+      ["How do I reset only app preferences?", "Use the individual settings controls where available. Avoid Delete All Data unless you intend to remove your cards and history."],
+      ["Can I study while iCloud is offline?", "Yes. Zuppi remains usable offline. Changes will sync when iCloud becomes available again."],
+      ["Why did a review not appear in the heatmap?", "The heatmap counts saved review events. Practice sessions may not create scheduled review events, and sync may still be processing."],
+      ["Why did my card become due again?", "The scheduler calculates the next interval from your rating, review history, due date, and scheduling settings."],
+      ["Can I change a card's scheduling manually?", "Zuppi manages scheduling automatically through FSRS. Editing card content does not normally reset its review history."],
+      ["What should I do before deleting a deck?", "Export a backup if you may need the cards later. Deck deletion can remove its cards and review data."],
+      ["Does deleting a deck delete its subdecks?", "Yes. Deleting a parent deck can remove its nested subdecks and their associated cards."],
+      ["Can I restore deleted cards?", "Only if they exist in an exported backup or another synced copy. Export backups before large changes."],
+      ["How do I open Settings on iPad?", "Tap the gear button in the deck sidebar."],
+      ["How do I open Settings on Mac?", "Click the gear button in the sidebar or use the app's Settings menu where available."],
+      ["Why are some deck names shortened?", "The sidebar shortens long names to keep the deck list readable. Open the deck to see its full title."],
+      ["Can I use emoji in deck names?", "Yes. You can use emoji in deck names and select emoji as deck icons."],
+      ["How do I change the review heatmap size?", "Change the heatmap range in Settings. The heatmap automatically fits the available screen width."],
+      ["What does new mean on a deck?", "New cards have not yet received a scheduled review."],
+      ["What does due mean on a deck?", "Due cards are scheduled for review now or earlier."],
+      ["What does learning mean?", "Learning cards are in their initial short review steps before entering longer review intervals."],
+      ["What does review mean?", "Review cards have completed initial learning and are scheduled using longer intervals."],
+      ["Can I use Zuppi for language learning?", "Yes. Use basic cards, reverse cards, cloze cards, audio, and extra fields for vocabulary and examples."],
+      ["Can I use Zuppi for medical study?", "Yes. Create decks for terminology, anatomy, diagnoses, and other study topics."],
+      ["Can I use Zuppi for university subjects?", "Yes. Organize subjects into decks and subdecks and use FSRS to schedule review."],
+      ["What is the best way to start?", "Create a small deck, add clear question-and-answer cards, and review consistently using the scheduled ratings."],
+      ["How can I write better cards?", "Keep each card focused on one fact, use a clear prompt, and include a concise answer with context when needed."],
+      ["How often should I study?", "Follow the cards due each day and use short, consistent sessions rather than waiting for a long study session."],
+      ["How do I get help with a feature request?", "Email adibfahi@gmail.com and describe the feature, the problem it solves, and the device you use."],
+      ["Is my data sold?", "No. Zuppi does not sell user data or operate advertising or analytics systems."],
+      ["Does Zuppi use a developer cloud server?", "No. Zuppi uses local storage and Apple's private iCloud database when sync is enabled."],
+      ["Can Apple access my private iCloud data?", "Apple operates iCloud and its terms apply. Zuppi itself cannot access your private CloudKit database."],
+      ["How do I stop iCloud syncing?", "Sign out of iCloud or disable iCloud access for Zuppi in the device's system settings. Export a backup first."],
+      ["What if two devices edit the same card?", "CloudKit resolves sync changes according to its data synchronization behavior. Avoid simultaneous edits when possible and keep backups."],
+      ["Can I use Zuppi on multiple Macs?", "Yes, install Zuppi on each Mac and use the same Apple Account for private iCloud sync."],
+      ["Does the App Store price vary by country?", "Yes. Apple displays the localized price and currency for the customer's storefront."],
+      ["Can Premium be shared with Family Sharing?", "Availability depends on the product settings configured in App Store Connect and Apple's Family Sharing rules."],
+      ["What is a non-consumable purchase?", "It is a purchase made once and retained permanently on the Apple Account, subject to Apple's purchase and refund rules."],
+      ["Why does the App Store build not show debug controls?", "Debug controls are intentionally excluded from Release and App Store builds for security and review compliance."],
+      ["How do I verify that I am using the App Store build?", "Check the App Store source and the version number in Zuppi Settings → About."],
+      ["What if the app closes immediately?", "Update the app, restart the device, and contact support with the crash steps and device details if it continues."],
+      ["How do I attach a screenshot to support?", "Take a screenshot using the device shortcut and attach it to your email. Remove private card text first if needed."],
+      ["How quickly will support reply?", "Support response time can vary, but including complete diagnostic information helps us respond faster."],
+      ["Can I use Zuppi with a school-managed device?", "Restrictions on managed devices may block iCloud, App Store purchases, file imports, or Apple Intelligence."],
+      ["Does Zuppi need network access?", "Network access is needed for iCloud sync, purchases, and some Apple services. Local studying works offline."],
+      ["What should I do after an operating system update?", "Open Zuppi once, allow migrations or sync to finish, and confirm your latest cards are present before deleting old backups."],
+      ["How do I keep an offline backup?", "Export a Zuppi backup and store a copy in Files, iCloud Drive, or another safe location."],
+      ["Can I use a backup from an older Zuppi version?", "Zuppi supports its compatible backup format and may migrate older data. Keep the original backup until you confirm the restore."],
+      ["How do I report incorrect translation text?", "Email the language, screen, and text that appears incorrect to adibfahi@gmail.com."],
+      ["How do I report an accessibility issue?", "Email the device, accessibility feature, screen, and steps that cause the issue so it can be investigated."],
+      ["Where can I find the app privacy policy?", "The privacy policy is available at https://adibfahimi.github.io/zuppi/privacy.html."],
+      ["Where can I find release information?", "App Store updates and the current version number appear on the Zuppi App Store listing."],
+      ["What if my question is not listed?", "Email adibfahi@gmail.com. We can help and may add the answer to this help center for other users."]
+    ];
+
+    const list = document.getElementById("help-list");
+    const search = document.getElementById("help-search");
+    const count = document.getElementById("result-count");
+    const empty = document.getElementById("no-results");
+
+    function render(filter = "") {
+      const needle = filter.trim().toLowerCase();
+      list.innerHTML = "";
+      let visible = 0;
+      questions.forEach(([question, answer], index) => {
+        if (needle && !(question + " " + answer).toLowerCase().includes(needle)) return;
+        visible += 1;
+        const item = document.createElement("details");
+        item.className = "help-item";
+        item.innerHTML = `<summary>${index + 1}. ${question}</summary><div class="answer">${answer}</div>`;
+        list.appendChild(item);
+      });
+      count.textContent = `Showing ${visible} of ${questions.length} answers`;
+      empty.hidden = visible !== 0;
+    }
+
+    search.addEventListener("input", event => render(event.target.value));
+    render();
+  </script>
+</body>
+</html>
